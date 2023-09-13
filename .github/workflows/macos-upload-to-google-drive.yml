@@ -11,33 +11,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # - name: Setup Docker
-      #   uses: docker-practice/actions-setup-docker@master
-      #   timeout-minutes: 12
-
-      # - name: Run Docker
+      # - name: Create a file to upload
       #   run: |
-      #     docker version
-      #     docker run --rm hello-world
-
-      - name: Create a file to upload
-        run: |
-          echo "Updated content" > upload.md
+      #     echo "Updated content" > upload.md
 
       - name: Upload the build to Google Drive
         uses: willo32/google-drive-upload-action@v1
         with:
-          target: "upload.md"
+          target: "test-data/some-android-app.apk"
           credentials: ${{ secrets.SPEEDSHIELD_CI_GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}
           parent_folder_id: ${{ secrets.UPLOAD_FOLDER_ID }}
-          name: "not-called-upload.md"
-
-      # - name: Upload the build to Google Drive
-      #   uses: dylankenneally/action-google-drive-upload@main
-      #   id: upload
-      #   with:
-      #     credentials: ${{ secrets.SPEEDSHIELD_CI_GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}
-      #     filename: "upload.md"
-      #     folderId: ${{ secrets.UPLOAD_FOLDER_ID }}
-      #     overwrite: "true"
-      #     mimeType: "text/markdown"
+          # name: "not-called-upload.md"
