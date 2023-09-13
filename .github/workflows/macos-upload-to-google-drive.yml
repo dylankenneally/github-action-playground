@@ -22,7 +22,7 @@ jobs:
 
       - name: Create a file to upload
         run: |
-          echo "Hello, world!" > upload.md
+          echo "Updated content" > upload.md
 
       - name: Upload the build to Google Drive
         uses: willo32/google-drive-upload-action@v1
