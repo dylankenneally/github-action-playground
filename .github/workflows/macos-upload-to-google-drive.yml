@@ -1,0 +1,26 @@
+name: Upload artifact to Google Drives from macOS runner
+
+on:
+  push:
+
+jobs:
+  build:
+    name: Pretend to build on macOS
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create a file to upload
+        run: |
+          echo "Hello, world!" > upload.md
+
+      - name: Upload the build to Google Drive
+        uses: dylankenneally/action-google-drive-upload@main
+        id: upload
+        with:
+          credentials: ${{ secrets.SPEEDSHIELD_CI_GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}
+          filename: "upload.md"
+          folderId: ${{ secrets.UPLOAD_FOLDER_ID }}
+          overwrite: "true"
+          mimeType: "text/markdown"
